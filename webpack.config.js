@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
+  entry: './src/index.tsx',
   module: {
     rules: [
       {
@@ -14,8 +15,16 @@ module.exports = {
         use: {
           loader: "html-loader"
         }
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       }
     ]
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ],
   },
   plugins: [
     new HtmlWebpackPlugin({
