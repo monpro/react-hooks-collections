@@ -52,6 +52,7 @@ const useProvideAuth = () => {
     });
 
     // Cleanup subscription on unmount
+    // always get latest auth
     return () => unsubscribe();
   }, []);
 
@@ -70,4 +71,33 @@ export const ProvideAuth = ({ children }) => {
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 };
 
+const useAuth = () => {
+  return useContext(authContext);
+};
 
+/**
+ * Add example to demonstrate useAuth hook
+ *
+const Test = () => {
+  return (
+    // wrap the component that will consume the auth props
+    <ProvideAuth>
+      <Nav></Nav>
+    </ProvideAuth>
+  )
+};
+
+const Nav = (props) => {
+  const auth = useAuth();
+
+  return (
+    <div>
+      {auth && auth.user ?
+        <button onClick={() => auth.signout()}>Sign out</button>
+        : <button onClick={() => auth.signin()}>Sign in</button>}
+    </div>
+  )
+};
+
+export default Test;
+**/
