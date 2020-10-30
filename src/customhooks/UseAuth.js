@@ -13,7 +13,7 @@ firebase.initializeApp({
 const useProvideAuth = () => {
   const [user, setUser] = useState(null);
 
-  const signin = (email, password) => {
+  const signIn = (email, password) => {
     return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -23,7 +23,7 @@ const useProvideAuth = () => {
       })
   };
 
-  const signup = (email, password) => {
+  const signUp = (email, password) => {
     return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -33,7 +33,7 @@ const useProvideAuth = () => {
       });
   };
 
-  const signout = () => {
+  const signOut = () => {
     return firebase
       .auth()
       .signOut()
@@ -58,9 +58,9 @@ const useProvideAuth = () => {
 
   return {
     user,
-    signin,
-    signup,
-    signout
+    signIn,
+    signUp,
+    signOut
   };
 };
 
