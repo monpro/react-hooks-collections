@@ -45,7 +45,6 @@ function render(vDom, container) {
     }
   }
   container.appendChild(dom);
-  console.log(container)
 }
 
 const App = (
