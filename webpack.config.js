@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const dotenv = require('dotenv')
 module.exports = {
-  entry: './src/index.tsx',
+  entry: './src/core/index.jsx',
   module: {
     rules: [
       {
