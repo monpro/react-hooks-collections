@@ -1,17 +1,7 @@
 // simplify version of createElement
 
-// function createElement<K extends keyof HTMLElementTagNameMap>(type: K, props: React.HTMLProps<K>, ...children: React.ReactElement[]) {
-//   return {
-//     type,
-//     props: {
-//       ...props,
-//       children
-//     }
-//   }
-// }
-//
-
 import React from 'react'
+import { render } from './fiber'
 function createElement(type, props, ...children) {
   return {
     type,
@@ -20,30 +10,6 @@ function createElement(type, props, ...children) {
       children,
     },
   }
-}
-
-function render(vDom, container) {
-  let dom
-  if (typeof vDom !== 'object') {
-    dom = document.createTextNode(vDom)
-  } else {
-    dom = document.createElement(vDom.type)
-  }
-  if (vDom.props) {
-    Object.keys(vDom.props)
-      .filter((key) => key !== 'children')
-      .forEach((item) => {
-        dom[item] = vDom.props[item]
-      })
-  }
-  if (vDom.props && vDom.props.children) {
-    if (typeof vDom.props.children === 'object') {
-      vDom.props.children.forEach((child) => render(child, dom))
-    } else {
-      render(vDom.props.children, dom)
-    }
-  }
-  container.appendChild(dom)
 }
 
 const App = (
