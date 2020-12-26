@@ -1,31 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
 
 const useDebounce = (value, delay) => {
-  const [debounceValue, setDebounceValue] = useState(value);
+  const [debounceValue, setDebounceValue] = useState(value)
   //if searchItem has not been updated within last 500ms.
   // it will hit the api
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebounceValue(value);
-    }, delay);
+      setDebounceValue(value)
+    }, delay)
 
-    return () => clearTimeout(handler);
-  }, [value, delay]); // only trigger effect when searchItem or delay change
+    return () => clearTimeout(handler)
+  }, [value, delay]) // only trigger effect when searchItem or delay change
 
   return debounceValue
-};
-
-
+}
 
 const searchCharacters = (search) => {
   return fetch(
     `https://gateway.marvel.com/v1/public/comics?apikey=${process.env.REACT_APP_API_KEY}&titleStartsWith=${search}`,
     {
-      method: 'GET'
+      method: 'GET',
     }
   )
-};
-
+}
 
 /**
  * This example is to illustrate the func of useDebounce

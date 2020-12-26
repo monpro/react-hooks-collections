@@ -11,19 +11,19 @@
 // }
 //
 
-import React from 'react';
+import React from 'react'
 function createElement(type, props, ...children) {
   return {
     type,
     props: {
       ...props,
-      children
-    }
+      children,
+    },
   }
 }
 
 function render(vDom, container) {
-  let dom;
+  let dom
   if (typeof vDom !== 'object') {
     dom = document.createTextNode(vDom)
   } else {
@@ -31,38 +31,32 @@ function render(vDom, container) {
   }
   if (vDom.props) {
     Object.keys(vDom.props)
-      .filter(key => key !== 'children')
-      .forEach(item => {
+      .filter((key) => key !== 'children')
+      .forEach((item) => {
         dom[item] = vDom.props[item]
       })
   }
   if (vDom.props && vDom.props.children) {
     if (typeof vDom.props.children === 'object') {
-      vDom.props.children.forEach(child => render(child, dom))
+      vDom.props.children.forEach((child) => render(child, dom))
     } else {
       render(vDom.props.children, dom)
     }
   }
-  container.appendChild(dom);
+  container.appendChild(dom)
 }
 
 const App = (
   <div>
-    <h1 id="title">
-      text h1
-    </h1>
+    <h1 id="title">text h1</h1>
     <h2>
       text h2
       <h3>
         text h3
-        <h4>
-          text h4
-        </h4>
+        <h4>text h4</h4>
       </h3>
     </h2>
   </div>
-);
+)
 
-render(App,
-  document.getElementById('container')
-);
+render(App, document.getElementById('container'))

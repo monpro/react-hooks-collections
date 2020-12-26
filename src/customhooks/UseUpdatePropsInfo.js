@@ -1,30 +1,29 @@
-import { useState, useEffect, useRef } from 'react';
-import * as React from "react";
+import { useState, useEffect, useRef } from 'react'
+import * as React from 'react'
 
 const useUpdatePropsInfo = (name, props) => {
-
-  const previousProps = useRef();
+  const previousProps = useRef()
   useEffect(() => {
-    if(previousProps.current) {
-      const keys = Object.keys({...previousProps.current, ...props});
-      const updatedProps = {};
+    if (previousProps.current) {
+      const keys = Object.keys({ ...previousProps.current, ...props })
+      const updatedProps = {}
 
-      keys.forEach(key => {
-        if(previousProps.current[key] !== props[key]) {
+      keys.forEach((key) => {
+        if (previousProps.current[key] !== props[key]) {
           updatedProps[key] = {
             origin: previousProps.current[key],
-            changedTo: props[key]
+            changedTo: props[key],
           }
         }
-      });
-      console.log(updatedProps);
-      if(Object.keys(updatedProps).length !== 0) {
+      })
+      console.log(updatedProps)
+      if (Object.keys(updatedProps).length !== 0) {
         console.log('[updated-info]', name, updatedProps)
       }
     }
-    previousProps.current = props;
-  });
-};
+    previousProps.current = props
+  })
+}
 
 /**
  *  This example is used to illustrate the func of useUpdatePropsInfo hooks

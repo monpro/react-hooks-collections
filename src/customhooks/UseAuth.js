@@ -1,79 +1,79 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
-import * as firebase from "firebase/app";
-import "firebase/auth";
+import React, { useState, useEffect, useContext, createContext } from 'react'
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
 
 // this is the example provider
 firebase.initializeApp({
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  appID: ""
-});
+  apiKey: '',
+  authDomain: '',
+  projectId: '',
+  appID: '',
+})
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
 
   const signIn = (email, password) => {
     return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(response => {
-        setUser(response.user);
+      .then((response) => {
+        setUser(response.user)
         return response.user
       })
-  };
+  }
 
   const signUp = (email, password) => {
     return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(response => {
-        setUser(response.user);
-        return response.user;
-      });
-  };
+      .then((response) => {
+        setUser(response.user)
+        return response.user
+      })
+  }
 
   const signOut = () => {
     return firebase
       .auth()
       .signOut()
       .then(() => {
-        setUser(false);
-      });
-  };
+        setUser(false)
+      })
+  }
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setUser(user);
+        setUser(user)
       } else {
-        setUser(false);
+        setUser(false)
       }
-    });
+    })
 
     // Cleanup subscription on unmount
     // always get latest auth
-    return () => unsubscribe();
-  }, []);
+    return () => unsubscribe()
+  }, [])
 
   return {
     user,
     signIn,
     signUp,
-    signOut
-  };
-};
+    signOut,
+  }
+}
 
-const authContext = createContext();
+const authContext = createContext()
 
 export const ProvideAuth = ({ children }) => {
-  const auth = useProvideAuth();
-  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-};
+  const auth = useProvideAuth()
+  return <authContext.Provider value={auth}>{children}</authContext.Provider>
+}
 
 const useAuth = () => {
-  return useContext(authContext);
-};
+  return useContext(authContext)
+}
 
 /**
  * Add example to demonstrate useAuth hook

@@ -1,34 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 const useKeyPress = (tareget) => {
-  const [keyPressed, setKeyPressed] = useState(false);
+  const [keyPressed, setKeyPressed] = useState(false)
 
-
-  const keyDown = ({key}) => {
-    if(key === tareget) {
-      setKeyPressed(true);
+  const keyDown = ({ key }) => {
+    if (key === tareget) {
+      setKeyPressed(true)
     }
-  };
+  }
 
-  const keyUp = ({key}) => {
-    if(key === tareget) {
-      setKeyPressed(false);
+  const keyUp = ({ key }) => {
+    if (key === tareget) {
+      setKeyPressed(false)
     }
-  };
+  }
 
   useEffect(() => {
-    window.addEventListener('keydown', keyDown);
-    window.addEventListener('keyup', keyUp);
+    window.addEventListener('keydown', keyDown)
+    window.addEventListener('keyup', keyUp)
 
     return () => {
-      window.removeEventListener('keydown', keyDown);
-      window.removeEventListener('keyup', keyUp);
+      window.removeEventListener('keydown', keyDown)
+      window.removeEventListener('keyup', keyUp)
     }
-  }, []); // Empty array ensures that effect is only run on mount and unmount
+  }, []) // Empty array ensures that effect is only run on mount and unmount
 
-
-  return keyPressed;
-};
+  return keyPressed
+}
 
 /**
  * add useKeyPress example
