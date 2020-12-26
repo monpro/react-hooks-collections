@@ -1,21 +1,21 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react'
 
 const useLockBodyScroll = () => {
   useLayoutEffect(() => {
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = 'hidden';
+    const originalStyle = window.getComputedStyle(document.body).overflow
+    document.body.style.overflow = 'hidden'
     // enable scrolling when component unmount
-    return () => document.body.style.overflow = originalStyle;
+    return () => (document.body.style.overflow = originalStyle)
   }, []) // ensures effect is only run on mount and unmount
-};
+}
 
 const Test = () => {
-  const [modelOpen, setModelOpen] = useState(false);
+  const [modelOpen, setModelOpen] = useState(false)
 
   return (
     <div>
       <button onClick={() => setModelOpen(true)}>Show Modal</button>
-      <Content/>
+      <Content />
       {modelOpen && (
         <Model
           title="Try scrolling"
@@ -24,19 +24,19 @@ const Test = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-const Model = ({title, content, onClose}) => {
+const Model = ({ title, content, onClose }) => {
   // lock the scroll when this component is mounting
-  useLockBodyScroll();
+  useLockBodyScroll()
   return (
     <div onClick={onClose}>
       <h2>{title}</h2>
       <p>{content}</p>
     </div>
   )
-};
+}
 
 const Content = () => {
   const terms = [
@@ -49,13 +49,13 @@ const Content = () => {
     'hipster',
     'startup',
     'salad',
-    'funny'
-  ];
+    'funny',
+  ]
 
-  const images = terms.map(term => (
+  const images = terms.map((term) => (
     <img src={`https://source.unsplash.com/random/800x200?${term}`} alt="" />
-  ));
-  return <div className="images">{images}</div>;
-};
+  ))
+  return <div className="images">{images}</div>
+}
 
-export default Test;
+export default Test

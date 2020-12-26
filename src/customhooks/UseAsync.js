@@ -1,36 +1,36 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react'
 
 const useAsync = (asyncFunction, immediate = true) => {
-  const [status, setStatus] = useState('IDLE');
-  const [data, setData] = useState();
-  const [error, setError] = useState();
+  const [status, setStatus] = useState('IDLE')
+  const [data, setData] = useState()
+  const [error, setError] = useState()
 
   // only when asyncFunction change,
   // the execute function will change
   const executeFunction = useCallback(() => {
-    setStatus('PENDING');
-    setData(null);
-    setError(null);
+    setStatus('PENDING')
+    setData(null)
+    setError(null)
 
     return asyncFunction()
-      .then(res => {
-        setData(res);
+      .then((res) => {
+        setData(res)
         setStatus('SUCCESS')
       })
-      .catch(err => {
-        setError(err);
-        setStatus('ERROR');
+      .catch((err) => {
+        setError(err)
+        setStatus('ERROR')
       })
-  });
+  })
 
   useEffect(() => {
-    if(immediate) {
+    if (immediate) {
       executeFunction()
     }
-  }, [executeFunction, immediate]);
+  }, [executeFunction, immediate])
 
-  return { executeFunction, status, data, error };
-};
+  return { executeFunction, status, data, error }
+}
 
 /**
  **********************************
