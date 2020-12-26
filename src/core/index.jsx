@@ -36,7 +36,6 @@ function render(vDom, container) {
         dom[item] = vDom.props[item]
       })
   }
-
   if (vDom.props && vDom.props.children) {
     if (typeof vDom.props.children === 'object') {
       vDom.props.children.forEach(child => render(child, dom))
