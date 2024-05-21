@@ -16,7 +16,7 @@ interface Fiber {
 }
 
 let nextUnitOfWork: Fiber = null
-let workInProgressRoot: Fiber = null;
+let workInProgressRoot: Fiber = null
 
 const workLoop = (task: IdleDeadline) => {
   while (nextUnitOfWork && task.timeRemaining() > 1) {
@@ -24,8 +24,8 @@ const workLoop = (task: IdleDeadline) => {
   }
 
   // when all fiber tasks is done, run commitRoot to enable render in one shot
-  if(!nextUnitOfWork && workInProgressRoot) {
-    commitRoot();
+  if (!nextUnitOfWork && workInProgressRoot) {
+    commitRoot()
   }
 
   window.requestIdleCallback(workLoop)
@@ -38,7 +38,7 @@ const commitRoot = () => {
 
 const commitRootImpl = (fiber: Fiber) => {
   if (!fiber) {
-    return;
+    return
   }
   const parent = fiber.return.dom
   parent.appendChild(fiber.dom)
@@ -50,8 +50,8 @@ const render = (vDom: Fiber, container: HTMLElement) => {
   workInProgressRoot = {
     dom: container,
     props: {
-      children: [vDom]
-    }
+      children: [vDom],
+    },
   }
   nextUnitOfWork = workInProgressRoot
 
@@ -145,6 +145,4 @@ const createDom = (vDom: Fiber) => {
   return dom
 }
 
-export {
-  render
-}
+export { render }
